@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Downloads - Sri Lanka's #1 Music Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(to bottom, #7ab80e 0%, #5a8f06 100%);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        .menu-btn {
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .banner {
+            background: #000;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-bar {
+            background: #eee;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-bar span {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .social-icon {
+            width: 30px;
+            height: 30px;
+            background: #3b5998;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+
+        .twitter { background: #1DA1F2; }
+        .youtube { background: #FF0000; }
+
+        .search-bar {
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .search-btn {
+            padding: 8px 20px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .alpha-nav {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            margin: 10px;
+        }
+
+        .alpha-nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            margin: 2px;
+            background: white;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #f8f8f8;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .song-list {
+            padding: 20px;
+        }
+
+        .song-item {
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+            background: white;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .song-thumb {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .song-info {
+            flex: 1;
+        }
+
+        .song-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .song-artist {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .song-meta {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .download-btn {
+            padding: 8px 15px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            height: fit-content;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .song-item {
+                flex-direction: column;
+            }
+
+            .song-thumb {
+                width: 100%;
+                height: 200px;
+            }
+
+            .alpha-nav {
+                font-size: 14px;
+            }
+
+            .alpha-nav a {
+                padding: 3px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="/placeholder.svg?height=50&width=150" alt="Music Downloads" class="logo">
+        <div class="menu-btn">☰</div>
+    </header>
+
+    <div class="banner">
+        <img src="/placeholder.svg?height=200&width=1000" alt="Banner" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <div class="social-bar">
+        <span>Follow Us</span>
+        <a href="#" class="social-icon facebook">f</a>
+        <a href="#" class="social-icon twitter">t</a>
+        <a href="#" class="social-icon youtube">▶</a>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search for...">
+        <button class="search-btn">Go!</button>
+    </div>
+
+    <div>
+        <div>List By Artist/Band Name</div>
+        <div class="alpha-nav">
+            <a href="#">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a>
+            <a href="#">F</a><a href="#">G</a><a href="#">H</a><a href="#">I</a><a href="#">J</a>
+            <a href="#">K</a><a href="#">L</a><a href="#">M</a><a href="#">N</a><a href="#">O</a>
+            <a href="#">P</a><a href="#">Q</a><a href="#">R</a><a href="#">S</a><a href="#">T</a>
+            <a href="#">U</a><a href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a>
+            <a href="#">Z</a><a href="#">0</a><a href="#">1</a><a href="#">2</a><a href="#">3</a>
+            <a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a>
+            <a href="#">9</a>
+        </div>
+
+        <div>List By Song Name</div>
+        <div class="alpha-nav">
+            <a href="#">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a>
+            <a href="#">F</a><a href="#">G</a><a href="#">H</a><a href="#">I</a><a href="#">J</a>
+            <a href="#">K</a><a href="#">L</a><a href="#">M</a><a href="#">N</a><a href="#">O</a>
+            <a href="#">P</a><a href="#">Q</a><a href="#">R</a><a href="#">S</a><a href="#">T</a>
+            <a href="#">U</a><a href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a>
+            <a href="#">Z</a><a href="#">0</a><a href="#">1</a><a href="#">2</a><a href="#">3</a>
+            <a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a>
+            <a href="#">9</a>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2>Latest Music Audio Downloads</h2>
+        <a href="#" style="color: #666; text-decoration: none;">View all Songs</a>
+    </div>
+
+    <div class="song-list">
+        <div class="song-item">
+            <img src="/placeholder.svg?height=100&width=100" alt="Song thumbnail" class="song-thumb">
+            <div class="song-info">
+                <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                <div class="song-artist">Prabath Gunasekara</div>
+                <div class="song-meta">1 month ago</div>
+                <div class="stats">
+                    <span>👁️ 118,559</span>
+                    <span>⬇️ 238</span>
+                </div>
+            </div>
+            <button class="download-btn">Download Song</button>
+        </div>
+
+        <div class="song-item">
+            <img src="/placeholder.svg?height=100&width=100" alt="Song thumbnail" class="song-thumb">
+            <div class="song-info">
+                <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                <div class="song-artist">Saroja Hewawitharana</div>
+                <div class="song-meta">2 months ago</div>
+                <div class="stats">
+                    <span>👁️ 292,709</span>
+                    <span>⬇️ 445</span>
+                </div>
+            </div>
+            <button class="download-btn">Download Song</button>
+        </div>
+
+        <div class="song-item">
+            <img src="/placeholder.svg?height=100&width=100" alt="Song thumbnail" class="song-thumb">
+            <div class="song-info">
+                <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                <div class="song-artist">Saroja Hewawitharana</div>
+                <div class="song-meta">2 months ago</div>
+                <div class="stats">
+                    <span>👁️ 289,535</span>
+                    <span>⬇️ 227</span>
+                </div>
+            </div>
+            <button class="download-btn">Download Song</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample JavaScript for dynamic functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu button functionality
+            const menuBtn = document.querySelector('.menu-btn');
+            menuBtn.addEventListener('click', function() {
+                alert('Menu clicked!');
+            });
+
+            // Download button functionality
+            const downloadBtns = document.querySelectorAll('.download-btn');
+            downloadBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const songTitle = this.parentElement.querySelector('.song-title').textContent;
+                    alert(`Downloading: ${songTitle}`);
+                });
+            });
+
+            // Search functionality
+            const searchBtn = document.querySelector('.search-btn');
+            const searchInput = document.querySelector('.search-input');
+            
+            searchBtn.addEventListener('click', function() {
+                const searchTerm = searchInput.value;
+                if (searchTerm) {
+                    alert(`Searching for: ${searchTerm}`);
+                }
+            });
+
+            // Alpha navigation functionality
+            const alphaLinks = document.querySelectorAll('.alpha-nav a');
+            alphaLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert(`Filtering by: ${this.textContent}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
