@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPMusic - Music Streaming Platform | Music Downloads - Sri Lanka's #1 Music Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        :root {
+            --primary-color: #00a8e8;
+            --sidebar-width: 240px;
+            --header-height: 60px;
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+        }
+
+        body {
+            display: grid;
+            min-height: 100vh;
+            background-color: var(--background-color);
+        }
+
+        /* Header Styles */
+        .header {
+            grid-area: header;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin-left: 2rem;
+        }
+
+        .nav-item {
+            padding: 0 1rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .login-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            grid-area: sidebar;
+            background-color: white;
+            padding: 1rem;
+            position: fixed;
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            top: var(--header-height);
+            overflow-y: auto;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            padding: 0.75rem 0;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-bar {
+            padding: 80px 50px 20px 30px;
+            display: flex;
+            gap: 5px;
+            height: 150px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #1da1f2;
+            border-radius: 20px;
+        }
+
+        .search-btn {
+            padding: 8px 20px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 90px;
+        }
+
+        .alpha-nav {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            margin: 10px;
+        }
+
+        .titel1 {
+            background: #dedede;
+            padding: 10px;
+            margin: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .alpha-nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            margin: 2px;
+            background: white;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #f8f8f8;
+            border-bottom: 2px solid #ddd;
+        }
+
+        h4 {
+            text-align: center;
+        }
+        .song-list {
+            padding: 20px;
+        }
+
+        .song-item {
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+            background: white;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .song-thumb {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .song-info {
+            flex: 1;
+        }
+
+        .song-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .song-artist {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .song-meta {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .download-btn {
+            padding: 8px 15px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            height: fit-content;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+
+        @media (max-width: 768px) {
+            .song-item {
+                flex-direction: column;
+            }
+
+            .song-thumb {
+                width: 100%;
+                height: 200px;
+            }
+
+            .alpha-nav {
+                font-size: 14px;
+            }
+
+            .alpha-nav a {
+                padding: 3px 6px;
+            }
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <body>
+        <header class="header">
+            <div class="logo">SPMUSIC</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="icon">🎵</i>
+                            Songs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="icon">👥</i>
+                            Artists
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="icon">📝</i>
+                            Lyrics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="icon">🎤</i>
+                            Karaoke
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="icon">📺</i>
+                            Live TV
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="icon">📻</i>
+                            Radio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="icon">🎧</i>
+                            DJ Remix
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        
+            <button class="login-btn">Login</button>
+        </header>
+    
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search for...">
+            <button class="search-btn">Search</button>
+        </div>
+    
+        <div>
+            <div><h4 class="titel1">List By Song Name</h4></div>
+            <div class="alpha-nav">
+                <a href="#">A</a><a href="#">B</a><a href="#">C</a><a href="#">D</a><a href="#">E</a>
+                <a href="#">F</a><a href="#">G</a><a href="#">H</a><a href="#">I</a><a href="#">J</a>
+                <a href="#">K</a><a href="#">L</a><a href="#">M</a><a href="#">N</a><a href="#">O</a>
+                <a href="#">P</a><a href="#">Q</a><a href="#">R</a><a href="#">S</a><a href="#">T</a>
+                <a href="#">U</a><a href="#">V</a><a href="#">W</a><a href="#">X</a><a href="#">Y</a>
+                <a href="#">Z</a><a href="#">0</a><a href="#">1</a><a href="#">2</a><a href="#">3</a>
+                <a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a>
+                <a href="#">9</a>
+            </div>
+    
+        <div class="section-header">
+            <h2>Latest Music Audio Downloads</h2>
+            <a href="#" style="color: #666; text-decoration: none;">View all Songs</a>
+        </div>
+    
+        <div class="song-list">
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Perabhawee(පෙරභවේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn" onclick="downloadSongPerabhawesong()">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Nubata Liyanne - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn" onclick="downloadSongNubataliyanne()">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Malwaram (මල්වාරම්) -  Raini Charuka</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn" onclick="downloadSongMalwaram()">Download Song</button>
+            </div>
+
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>   
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+            <div class="song-item">
+                <img src="Perabhawe song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Herbal Adare (හර්බල් ආදරේ) - Prabath Gunasekara</div>
+                    <div class="song-artist">Prabath Gunasekara</div>
+                    <div class="song-meta">1 month ago</div>
+                    <div class="stats">
+                        <span>👁️ 118,559</span>
+                        <span>⬇️ 238</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Nubata liyanne.jpg" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athin Alla Ganna Beri - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 292,709</span>
+                        <span>⬇️ 445</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+    
+            <div class="song-item">
+                <img src="Malwaram song.png" alt="Song thumbnail" class="song-thumb">
+                <div class="song-info">
+                    <div class="song-title">Athekin Darana - Saroja Hewawitharana</div>
+                    <div class="song-artist">Saroja Hewawitharana</div>
+                    <div class="song-meta">2 months ago</div>
+                    <div class="stats">
+                        <span>👁️ 289,535</span>
+                        <span>⬇️ 227</span>
+                    </div>
+                </div>
+                <button class="download-btn">Download Song</button>
+            </div>
+        </div>
+
+        <script src="script.js"></script>  <!-- JS ගොනුව සම්බන්ධ කිරීම -->
+    
+        <script>
+            // Sample JavaScript for dynamic functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                // Menu button functionality
+                const menuBtn = document.querySelector('.menu-btn');
+                menuBtn.addEventListener('click', function() {
+                    alert('Menu clicked!');
+                });
+    
+                // Download button functionality
+                const downloadBtns = document.querySelectorAll('.download-btn');
+                downloadBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const songTitle = this.parentElement.querySelector('.song-title').textContent;
+                        alert(`Downloading: ${songTitle}`);
+                    });
+                });
+    
+                // Search functionality
+                const searchBtn = document.querySelector('.search-btn');
+                const searchInput = document.querySelector('.search-input');
+                
+                searchBtn.addEventListener('click', function() {
+                    const searchTerm = searchInput.value;
+                    if (searchTerm) {
+                        alert(`Searching for: ${searchTerm}`);
+                    }
+                });
+    
+                // Alpha navigation functionality
+                const alphaLinks = document.querySelectorAll('.alpha-nav a');
+                alphaLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        alert(`Filtering by: ${this.textContent}`);
+                    });
+                });
+            });
+        </script>
+</body>
+</html>

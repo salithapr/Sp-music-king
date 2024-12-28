@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SongHub - Music Streaming Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        :root {
+            --primary-color: #00a8e8;
+            --sidebar-width: 240px;
+            --header-height: 60px;
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+        }
+
+        body {
+            display: grid;
+            grid-template-areas: 
+                "header header header"
+                "sidebar main rightbar";
+            grid-template-columns: var(--sidebar-width) 1fr 300px;
+            grid-template-rows: var(--header-height) 1fr;
+            min-height: 100vh;
+            background-color: var(--background-color);
+        }
+
+        /* Header Styles */
+        .header {
+            grid-area: header;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin-left: 2rem;
+        }
+
+        .nav-item {
+            padding: 0 1rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-bar {
+            margin-left: auto;
+            margin-right: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        .login-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            grid-area: sidebar;
+            background-color: white;
+            padding: 1rem;
+            position: fixed;
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            top: var(--header-height);
+            overflow-y: auto;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            padding: 0.75rem 0;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            grid-area: main;
+            padding: 2rem;
+            margin-top: var(--header-height);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-all {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .song-card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .song-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .song-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .song-info {
+            padding: 1rem;
+        }
+
+        .song-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .song-artist {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Right Sidebar Styles */
+        .right-sidebar {
+            grid-area: rightbar;
+            padding: 1rem;
+            margin-top: var(--header-height);
+            background-color: white;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-link {
+            text-decoration: none;
+            color: #333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            body {
+                grid-template-areas: 
+                    "header header"
+                    "sidebar main";
+                grid-template-columns: var(--sidebar-width) 1fr;
+            }
+
+            .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                grid-template-areas: 
+                    "header"
+                    "main";
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">SONGHUB</div>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon">🎵</i>
+                        Songs
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon">👥</i>
+                        Artists
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon">📝</i>
+                        Lyrics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon">🎤</i>
+                        Karaoke
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon">📺</i>
+                        Live TV
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon">📻</i>
+                        Radio
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search songs, artists, lyrics...">
+        </div>
+        <button class="login-btn">Login</button>
+    </header>
+
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="icon">🔥</i>
+                    Trending Songs
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="icon">⭐</i>
+                    Featured Artists
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="icon">🆕</i>
+                    New Songs
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="icon">🎭</i>
+                    Programs
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="icon">🎸</i>
+                    Musical Bands
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="icon">📝</i>
+                    Lyrics
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="icon">🎤</i>
+                    Karaoke Music
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <section>
+            <div class="section-header">
+                <h2>Trending Songs</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            <div class="songs-grid" id="trending-songs"></div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>New Release</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            <div class="songs-grid" id="new-releases"></div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Latest Musical Programs</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            <div class="songs-grid" id="musical-programs"></div>
+        </section>
+    </main>
+
+    <aside class="right-sidebar">
+        <h3>Musical Programmes</h3>
+        <ul class="category-list" id="musical-programmes"></ul>
+        
+        <h3>Song Categories</h3>
+        <ul class="category-list" id="song-categories"></ul>
+    </aside>
+
+    <script>
+        // Sample data
+        const trendingSongs = [
+            {
+                title: "Malisara",
+                artist: "Artist Name",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Paren Iwathata",
+                artist: "Artist Name",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Chiki Chiki",
+                artist: "Artist Name",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Sanda Wage",
+                artist: "Artist Name",
+                image: "/placeholder.svg?height=200&width=200"
+            }
+        ];
+
+        const newReleases = [
+            {
+                title: "Sinhala New Song",
+                artist: "Artist Name",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Latest Hit",
+                artist: "Artist Name",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "New Release",
+                artist: "Artist Name",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Fresh Track",
+                artist: "Artist Name",
+                image: "/placeholder.svg?height=200&width=200"
+            }
+        ];
+
+        const categories = [
+            "Awurudu Songs",
+            "Balia Songs",
+            "Buddha Gatha and Pirith",
+            "Christmas Songs",
+            "DJ Songs",
+            "Folk Music",
+            "Pop Songs",
+            "Classical Music"
+        ];
+
+        // Function to create song cards
+        function createSongCard(song) {
+            return `
+                <div class="song-card">
+                    <img src="${song.image}" alt="${song.title}" class="song-image">
+                    <div class="song-info">
+                        <div class="song-title">${song.title}</div>
+                        <div class="song-artist">${song.artist}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to create category items
+        function createCategoryItem(category) {
+            return `
+                <li class="category-item">
+                    <a href="#" class="category-link">${category}</a>
+                </li>
+            `;
+        }
+
+        // Function to render songs
+        function renderSongs(songs, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = songs.map(song => createSongCard(song)).join('');
+        }
+
+        // Function to render categories
+        function renderCategories(categories, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = categories.map(category => createCategoryItem(category)).join('');
+        }
+
+        // Render content when the page loads
+        window.addEventListener('load', () => {
+            renderSongs(trendingSongs, 'trending-songs');
+            renderSongs(newReleases, 'new-releases');
+            renderCategories(categories, 'song-categories');
+        });
+    </script>
+</body>
+</html>
