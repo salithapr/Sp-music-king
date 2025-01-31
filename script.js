@@ -130,7 +130,7 @@ const link = document.createElement('a');
 //8th song
 function downloadSongAthinAlla() {
     // සින්දු ගොනුවේ සබැඳිය
-    const songUrl = 'songs/Athin Alla Ganna Beri - Ridma Weerawardena Ft. Dinupa Kodagoda(MP3_160K).mp3';  // ඔබේ සින්දු ගොනුවේ සබැඳිය මෙහි දමන්න
+    const songUrl = 'Athakin Darana (අතකින් දරනා) - Saroja Hewawitharana(MP3_160K).mp3';  // ඔබේ සින්දු ගොනුවේ සබැඳිය මෙහි දමන්න
     
     // temporary <a> link එකක් සාදන්න
 
