@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Streaming Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 20px;
+        }
+
+        /* Category Tags */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .category-tag {
+            background-color: #404040;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .category-tag:hover {
+            background-color: #505050;
+        }
+
+        /* New Release Section */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .view-all {
+            color: white;
+            text-decoration: none;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        /* Music Grid */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .music-card {
+            background-color: #282828;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .music-card:hover {
+            background-color: #383838;
+        }
+
+        .music-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .music-info {
+            padding: 16px;
+        }
+
+        .music-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .music-artist {
+            font-size: 14px;
+            color: #b3b3b3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .music-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .music-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Categories -->
+    <div class="categories">
+        <div class="category-tag">DJ & Remix</div>
+        <div class="category-tag">Cover</div>
+        <div class="category-tag">Rap</div>
+        <div class="category-tag">Awrudu</div>
+        <div class="category-tag">Christmas</div>
+        <div class="category-tag">Love</div>
+        <div class="category-tag">Bodu Bathi Gee</div>
+        <div class="category-tag">Maw Guna</div>
+    </div>
+
+    <!-- New Release Section -->
+    <div class="section-header">
+        <h2 class="section-title">New Release</h2>
+        <a href="#" class="view-all">View All</a>
+    </div>
+
+    <!-- Music Grid -->
+    <div class="music-grid">
+        <!-- Music Card 1 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" class="music-image">
+            <div class="music-info">
+                <div class="music-title">Dj Amila Clash Jay</div>
+                <div class="music-artist">X-Mashes Deejays</div>
+            </div>
+        </div>
+
+        <!-- Music Card 2 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Chamara Weerasinghe" class="music-image">
+            <div class="music-info">
+                <div class="music-title">DJZ Chamila Prabath </div>
+                <div class="music-artist">X-Mashes Deejays</div>
+            </div>
+        </div>
+
+        <!-- Music Card 3 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Milton Medley" class="music-image">
+            <div class="music-info">
+                <div class="music-title">DJZ JNK</div>
+                <div class="music-artist">X-Mashes Deejays</div>
+            </div>
+        </div>
+
+        <!-- Music Card 4 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Sanda Mini" class="music-image">
+            <div class="music-info">
+                <div class="music-title">DJZ Dimalka</div>
+                <div class="music-artist">X-Mashes Deejays</div>
+            </div>
+        </div>
+
+        <!-- Music Card 5 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Bawaya Pura" class="music-image">
+            <div class="music-info">
+                <div class="music-title">DJZ Kasun Deshan</div>
+                <div class="music-artist">X-Mashes Deejays</div>
+            </div>
+        </div>
+        <!-- Music Card 5 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Bawaya Pura" class="music-image">
+            <div class="music-info">
+                <div class="music-title">DJZ Salitha</div>
+                <div class="music-artist">X-Mashes Deejays</div>
+            </div>
+        </div>
+        <!-- Music Card 6 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Tharahen Ahaka Bala" class="music-image">
+            <div class="music-info">
+                <div class="music-title">DJZ Shihan</div>
+                <div class="music-artist">X-Mashes Deejays</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

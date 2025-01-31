@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SongHub</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #007bff;
+    color: white;
+}
+
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+header input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+}
+
+header button {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+main {
+    padding: 1rem;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.songs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.song {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 1rem;
+}
+
+.song img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.song p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.song button {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.player {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+audio {
+    width: 100%;
+}
+
+#nowPlaying {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+</style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">SONGHUB</div>
+        <input type="text" placeholder="Search...">
+        <button>Login</button>
+    </header>
+
+    <main>
+        <section class="trending">
+            <h2>Trending Songs</h2>
+            <div class="songs-grid">
+                <!-- Song 1 -->
+                <div class="song">
+                    <img src="song1.jpg" alt="Song 1">
+                    <p>2024 New Sinhala Songs DJ Nonstop</p>
+                    <button onclick="playSong('song1.mp3', '2024 New Sinhala Songs DJ Nonstop')">Play</button>
+                </div>
+                <!-- Song 2 -->
+                <div class="song">
+                    <img src="song2.jpg" alt="Song 2">
+                    <p>Paren Iwaththa Yado Mama Nam</p>
+                    <button onclick="playSong('song2.mp3', 'Paren Iwaththa Yado Mama Nam')">Play</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Player Section -->
+        <section class="player" id="musicPlayer" style="display: none;">
+            <h2 id="nowPlaying">Now Playing</h2>
+            <audio id="audioPlayer" controls>
+                <source id="audioSource" src="" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </section>
+    </main>
+
+    <script>
+        function playSong(songPath, songTitle) {
+    // Display the music player
+    const musicPlayer = document.getElementById('musicPlayer');
+    musicPlayer.style.display = 'block';
+
+    // Update the song title
+    const nowPlaying = document.getElementById('nowPlaying');
+    nowPlaying.textContent = `Now Playing: ${songTitle}`;
+
+    // Set the audio source and play
+    const audioPlayer = document.getElementById('audioPlayer');
+    const audioSource = document.getElementById('audioSource');
+
+    audioSource.src = songPath; // Set the song path
+    audioPlayer.load();         // Load the audio
+    audioPlayer.play();         // Play the audio
+}
+    </script>
+
+    <ol><li>salitha</li><li>vision</li></ol>
+</body>
+</html>

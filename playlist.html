@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Streaming Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        :root {
+            --primary-color: #00a8e8;
+            --sidebar-width: 240px;
+            --header-height: 60px;
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+        }
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 20px;
+        }
+   /* Header Styles */
+   .header {
+            grid-area: header;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin-left: 2rem;
+        }
+
+        .nav-item {
+            padding: 0 1rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .login-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin-left: 2rem;
+        }
+
+        .nav-item {
+            padding: 0 1rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .login-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            grid-area: sidebar;
+            background-color: white;
+            padding: 1rem;
+            position: fixed;
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            top: var(--header-height);
+            overflow-y: auto;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            padding: 0.75rem 0;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-bar {
+            padding: 80px 250px 20px 250px;
+            display: flex;
+            gap: 5px;
+            height: 150px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #1da1f2;
+            border-radius: 20px;
+        }
+
+        .search-btn {
+            padding: 8px 20px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 90px;
+        }
+
+        .alpha-nav {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            margin: 10px;
+        }
+
+        .titel1 {
+            background: #dedede;
+            padding: 10px;
+            margin: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .alpha-nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            margin: 2px;
+            background: white;
+        }
+
+       
+
+        h4 {
+            text-align: center;
+        }
+        .song-list {
+            padding: 20px;
+        }
+
+        .song-item {
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+            background: white;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .song-thumb {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .song-info {
+            flex: 1;
+        }
+
+        .song-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .song-artist {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .song-meta {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .download-btn {
+            padding: 8px 15px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            height: fit-content;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+
+        @media (max-width: 768px) {
+            .song-item {
+                flex-direction: column;
+            }
+
+            .song-thumb {
+                width: 100%;
+                height: 200px;
+            }
+
+            .alpha-nav {
+                font-size: 14px;
+            }
+
+            .alpha-nav a {
+                padding: 3px 6px;
+            }
+        }
+        nav {
+    background-color: rgb(246, 249, 246);
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  ul li {
+    margin-right: 20px;
+  }
+  
+  ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  ul li a:hover {
+    color: rgb(143, 154, 143);
+  }
+  
+  .checkbtn {
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: none;
+  }
+  
+  #check {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .checkbtn {
+      display: block;
+      order: 1;
+      margin-right: 20px;
+    }
+  
+    ul {
+      position: fixed;
+      top: 80px;
+      right: -100%;
+      background-color: rgb(253, 255, 253);
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+    }
+  
+    ul li {
+      margin: 20px 0;
+    }
+  
+    ul li a {
+      font-size: 20px;
+    }
+  
+    #check:checked ~ ul {
+      right: 0;
+    }
+  }
+  .player {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+audio {
+    width: 100%;
+}
+
+#nowPlaying {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+        /* Category Tags */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .category-tag {
+            background-color: #404040;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .category-tag:hover {
+            background-color: #505050;
+        }
+
+        /* New Release Section */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .view-all {
+            color: white;
+            text-decoration: none;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        /* Music Grid */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .music-card {
+            background-color: #282828;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .music-card:hover {
+            background-color: #383838;
+        }
+
+        .music-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .music-info {
+            padding: 16px;
+        }
+
+        .music-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .music-artist {
+            font-size: 14px;
+            color: #b3b3b3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .music-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .music-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">SPMUSIC</div>
+        <nav>
+            <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67" class="nav-link">
+                        <i class="icon">🎵</i>
+                        Songs
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67" class="nav-link">
+                        <i class="icon">👥</i>
+                        Artists
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67" class="nav-link">
+                        <i class="icon">📝</i>
+                        Lyrics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67" class="nav-link">
+                        <i class="icon">🎤</i>
+                        Karaoke
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67" class="nav-link">
+                        <i class="icon">📺</i>
+                        Live TV
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67" class="nav-link">
+                        <i class="icon">📻</i>
+                        Radio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67" class="nav-link">
+                        <i class="icon">🎧</i>
+                        DJ Remix
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    
+        <button class="login-btn">Login</button>
+    </header>
+
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search for...">
+        <button class="search-btn" >Search</button>
+    </div>
+
+    <div>
+        <div><h4 class="titel1">List By Song Name</h4></div>
+        <div class="alpha-nav">
+            <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">A</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">B</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">C</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">D</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">E</a>
+            <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">F</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">G</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">H</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">I</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">J</a>
+            <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">K</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">L</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">M</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">N</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">O</a>
+            <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">P</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">Q</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">R</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">S</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">T</a>
+            <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">U</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">V</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">W</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">X</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">Y</a>
+            <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">Z</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">0</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">1</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">2</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">3</a>
+            <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">4</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">5</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">6</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">7</a><a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">8</a>
+            <a href="https://www.profitablecpmrate.com/wyy1h1b9c1?key=056755ef8a65d9e0c98bb765954afd67">9</a>
+        </div>
+<br><br>
+    <!-- Categories -->
+    <div class="categories">
+        <div class="category-tag">DJ & Remix</div>
+        <div class="category-tag">Cover</div>
+        <div class="category-tag">Rap</div>
+        <div class="category-tag">Awrudu</div>
+        <div class="category-tag">Christmas</div>
+        <div class="category-tag">Love</div>
+        <div class="category-tag">Bodu Bathi Gee</div>
+        <div class="category-tag">Maw Guna</div>
+    </div>
+
+    <!-- New Release Section -->
+    <div class="section-header">
+        <h2 class="section-title">New Release</h2>
+        <a href="#" class="view-all">View All</a>
+    </div>
+
+    <!-- Music Grid -->
+    <div class="music-grid">
+        <!-- Music Card 1 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Somathilaka Jayamaha" class="music-image">
+            <div class="music-info">
+                <div class="music-title">Somathilaka Jayamaha Medley (Live)</div>
+                <div class="music-artist">Sahara Flash</div>
+            </div>
+        </div>
+
+        <!-- Music Card 2 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Chamara Weerasinghe" class="music-image">
+            <div class="music-info">
+                <div class="music-title">Chamara Weerasinghe Medley (Live)</div>
+                <div class="music-artist">Arrowstar</div>
+            </div>
+        </div>
+
+        <!-- Music Card 3 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Milton Medley" class="music-image">
+            <div class="music-info">
+                <div class="music-title">Milton Medley (Live)</div>
+                <div class="music-artist">QUBE Records</div>
+            </div>
+        </div>
+
+        <!-- Music Card 4 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Sanda Mini" class="music-image">
+            <div class="music-info">
+                <div class="music-title">Sanda Mini</div>
+                <div class="music-artist">Mangala Denex</div>
+            </div>
+        </div>
+
+        <!-- Music Card 5 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Bawaya Pura" class="music-image">
+            <div class="music-info">
+                <div class="music-title">Bawaya Pura</div>
+                <div class="music-artist">Kavee & Sapu</div>
+            </div>
+        </div>
+
+        <!-- Music Card 6 -->
+        <div class="music-card">
+            <img src="Untitled.jpg" alt="Tharahen Ahaka Bala" class="music-image">
+            <div class="music-info">
+                <div class="music-title">Tharahen Ahaka Bala (Live)</div>
+                <div class="music-artist">Athula Adhikari</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
