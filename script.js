@@ -74,7 +74,7 @@ const link = document.createElement('a');
 //4th song
 function downloadSongMalwaram() {
     // සින්දු ගොනුවේ සබැඳිය
-    const songUrl = 'songs/Malwaram _ Raini Charuka - R_B Cover by Thirathi Amoda(MP3_160K).mp3';  // ඔබේ සින්දු ගොනුවේ සබැඳිය මෙහි දමන්න
+    const songUrl = 'Malwaram _ Raini Charuka - R_B Cover by Thirathi Amoda(MP3_160K).mp3';  // ඔබේ සින්දු ගොනුවේ සබැඳිය මෙහි දමන්න
     
     // temporary <a> link එකක් සාදන්න
 
